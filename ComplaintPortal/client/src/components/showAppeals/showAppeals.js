@@ -14,11 +14,11 @@ import Box from "@mui/material/Box";
 
 export default function BasicTable() {
   const [counter, setCounter] = useState(0);
-  const [complaintList, setComplaintList] = useState([]);
+  const [appealList, setAppealList] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/complaints").then((allComplaints) => {
-      setComplaintList(allComplaints.data);
-      // console.log(allComplaints.data);
+    axios.get("http://localhost:5000/appeals").then((allAppeals) => {
+        setAppealList(allAppeals.data);
+    //   console.log(allAppeals.data);
     });
   }, []);
 
@@ -40,7 +40,7 @@ export default function BasicTable() {
   return (
     <>
       <h2>Total Number of complaints: {counter}</h2>
-      <h2>All Complaints</h2>
+      <h2>All Appeals</h2>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
         <Button variant="contained" onClick={routeChange}>
           Back
@@ -61,17 +61,17 @@ export default function BasicTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {complaintList.map((complaint, key) => (
+                {appealList.map((appeal, key) => (
                   <TableRow
                     key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {complaint.ticketNumber}
+                      {appeal.ticketNumber}
                     </TableCell>
-                    <TableCell align="right">{complaint.type}</TableCell>
-                    <TableCell align="right">{complaint.name}</TableCell>
-                    <TableCell align="right">{complaint.idNum}</TableCell>
+                    <TableCell align="right">{appeal.type}</TableCell>
+                    <TableCell align="right">{appeal.name}</TableCell>
+                    <TableCell align="right">{appeal.idNum}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

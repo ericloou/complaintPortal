@@ -14,11 +14,10 @@ import Box from "@mui/material/Box";
 
 export default function BasicTable() {
   const [counter, setCounter] = useState(0);
-  const [complaintList, setComplaintList] = useState([]);
+  const [feedbackList, setFeedbackList] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/complaints").then((allComplaints) => {
-      setComplaintList(allComplaints.data);
-      // console.log(allComplaints.data);
+    axios.get("http://localhost:5000/feedbacks").then((allFeedbacks) => {
+      setFeedbackList(allFeedbacks.data);
     });
   }, []);
 
@@ -40,7 +39,7 @@ export default function BasicTable() {
   return (
     <>
       <h2>Total Number of complaints: {counter}</h2>
-      <h2>All Complaints</h2>
+      <h2>All Feedbacks</h2>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
         <Button variant="contained" onClick={routeChange}>
           Back
@@ -61,17 +60,17 @@ export default function BasicTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {complaintList.map((complaint, key) => (
+                {feedbackList.map((feedback, key) => (
                   <TableRow
                     key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {complaint.ticketNumber}
+                      {feedback.ticketNumber}
                     </TableCell>
-                    <TableCell align="right">{complaint.type}</TableCell>
-                    <TableCell align="right">{complaint.name}</TableCell>
-                    <TableCell align="right">{complaint.idNum}</TableCell>
+                    <TableCell align="right">{feedback.type}</TableCell>
+                    <TableCell align="right">{feedback.name}</TableCell>
+                    <TableCell align="right">{feedback.idNum}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

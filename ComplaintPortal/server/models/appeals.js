@@ -1,15 +1,14 @@
 import Mongoose from 'mongoose';
 
 //create a function to get an object
-const complaintSchema = Mongoose.Schema({
+const appealSchema = Mongoose.Schema({
     name: String,
     idNum: String,
-    email: String,
+    unit: String,
     message: String,
     ticketNumber: String,
-    
 })
 
-const complaint = Mongoose.model('complaint', complaintSchema);
+const appeal = Mongoose.model('appeal', appealSchema);
 
-export default complaint;
+export default appeal;

@@ -1,6 +1,6 @@
-// import logo from "../../logo.svg";
+import logo from "../../logo.svg";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-// import CreateForm from "../createComplaints/createComplaints.js";
+import CreateForm from "../createComplaints/createComplaints.js";
 import useStyles from "../../styles.js";
 import * as React from "react";
 import Box from "@mui/material/Box";
@@ -13,15 +13,20 @@ export default function HomePage() {
   const history = useHistory();
 
   const complaintRoute = () => {
-    let path = `/createcomplaints`;
+    let path = `/showcomplaints`;
     history.push(path);
   };
   const appealRoute = () => {
-    let path = `/createappeals`;
+    let path = `/showappeals`;
     history.push(path);
   };
   const feedbackRoute = () => {
-    let path = `/createfeedbacks`;
+    let path = `/showfeedbacks`;
+    history.push(path);
+  };
+
+  const home = () => {
+    let path = `/`;
     history.push(path);
   };
   return (
@@ -29,14 +34,14 @@ export default function HomePage() {
       <Container maxWidth="lg">
         <AppBar className={classes.appBar} position="static" color="inherit">
           <Typography className={classes.heading} variant="h2" align="center">
-            Complaint Portal v4
+            Complaint Portal v4 Admin Page
           </Typography>
           <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-            <Login />
+            <Button onClick={home}>Logout</Button>
           </Box>
         </AppBar>
-        <h2>Welcome to the complaint portal v4</h2>
-        <h3>Please choose the type of form that you wish to submit</h3>
+        <h2>Welcome to the complaint portal v4 Admin Page</h2>
+        <h3>Please choose the type of form that you wish to view</h3>
         <Grow in>
           <Container>
             <Grid
