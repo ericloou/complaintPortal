@@ -1,4 +1,4 @@
-import { useState, useEffect, Component } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
@@ -85,6 +85,7 @@ export default function CreateComplaintForm() {
             </MenuItem>
             <MenuItem value="Complaint">Complaint</MenuItem>
             <MenuItem value="Appeal">Appeal</MenuItem>
+            <MenuItem value="Feedback">Feedback</MenuItem>
           </Select>
           <FormHelperText>Required</FormHelperText>
         </FormControl>
@@ -105,7 +106,10 @@ export default function CreateComplaintForm() {
               disabled
               id="outlined-required"
               label="Disabled"
-              defaultValue="Anoymous"
+              value="Anoymous"
+              onChange={() => {
+                setComplaints({ ...complaint, name: "Anoymous" });
+              }}
             />
           ) : (
             <TextField
