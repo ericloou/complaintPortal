@@ -27,14 +27,14 @@ export default function CreateFeedbackForm() {
   });
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
-    const data = localStorage.getItem("Total-Count");
-    if (data) {
-      setCounter(JSON.parse(data));
+    const fdata = localStorage.getItem("Total-Feedback");
+    if (fdata) {
+      setCounter(JSON.parse(fdata));
     }
   }, []);
   //set persistent object by converting into string and storing in localStorage
   useEffect(() => {
-    localStorage.setItem("Total-Count", JSON.stringify(counter));
+    localStorage.setItem("Total-Feedback", JSON.stringify(counter));
   });
 
   const handleChange = (event) => {
@@ -56,11 +56,14 @@ export default function CreateFeedbackForm() {
   }
   return (
     <>
+      <Box bgcolor="black">
+        <img src="/images/MU_Logo.ico" alt="" />
+        <Box>
+          <Button onClick={routeChange}>Home</Button>
+        </Box>
+      </Box>
       <h2>Complaint Form</h2>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-        <AppBar className={classes.appBar} position="static" color="inherit">
-          <Button onClick={routeChange}>Home</Button>
-        </AppBar>
         <Container maxWidth="lg">
           <Box
             component="form"

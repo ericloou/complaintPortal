@@ -24,7 +24,7 @@ export default function BasicTable() {
 
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
-    const data = localStorage.getItem("Total-Count");
+    const data = localStorage.getItem("Total-Complaint");
     if (data) {
       setCounter(JSON.parse(data));
     }
@@ -39,12 +39,16 @@ export default function BasicTable() {
 
   return (
     <>
+    <Box bgcolor="black">
+        <img src="/images/MU_Logo.ico" alt="" />
+        <Box>
+          <Button variant="text" onClick={routeChange}>Back</Button>
+        </Box>
+      </Box>
       <h2>Total Number of complaints: {counter}</h2>
       <h2>All Complaints</h2>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-        <Button variant="contained" onClick={routeChange}>
-          Back
-        </Button>
+      
       </Box>
       <Grow in>
         <Container maxWidth="lg">

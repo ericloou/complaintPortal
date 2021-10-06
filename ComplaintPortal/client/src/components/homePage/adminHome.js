@@ -1,11 +1,11 @@
-import logo from "../../logo.svg";
+// import logo from "../../logo.svg";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-import CreateForm from "../createComplaints/createComplaints.js";
+// import CreateForm from "../createComplaints/createComplaints.js";
 import useStyles from "../../styles.js";
 import * as React from "react";
 import Box from "@mui/material/Box";
-import Login from "../login/login.js";
-import { BrowserRouter, Route, Link, useHistory } from "react-router-dom";
+import Logout from "../logout/logout.js";
+import { useHistory } from "react-router-dom";
 import Button from "@mui/material/Button";
 
 export default function HomePage() {
@@ -31,15 +31,16 @@ export default function HomePage() {
   };
   return (
     <div>
+      <Logout/>
+      <Box bgcolor="black">
+        <img src="/images/MU_Logo.ico" alt="" />
+      </Box>
       <Container maxWidth="lg">
-        <AppBar className={classes.appBar} position="static" color="inherit">
           <Typography className={classes.heading} variant="h2" align="center">
             Complaint Portal v4 Admin Page
           </Typography>
           <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-            <Button onClick={home}>Logout</Button>
           </Box>
-        </AppBar>
         <h2>Welcome to the complaint portal v4 Admin Page</h2>
         <h3>Please choose the type of form that you wish to view</h3>
         <Grow in>

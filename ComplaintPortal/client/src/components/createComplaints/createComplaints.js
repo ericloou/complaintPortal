@@ -13,7 +13,7 @@ import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
 import { Container, AppBar } from "@material-ui/core";
 import useStyles from "../../styles.js";
-import { BrowserRouter, Route, Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function CreateComplaintForm() {
   const history = useHistory();
@@ -31,18 +31,18 @@ export default function CreateComplaintForm() {
     idNum: "",
     email: "",
     message: "",
-    ticketNumber: "C",
+    ticketNumber: "",
   });
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
-    const data = localStorage.getItem("Total-Count");
+    const data = localStorage.getItem("Total-Complaint");
     if (data) {
       setCounter(JSON.parse(data));
     }
   }, []);
   //set persistent object by converting into string and storing in localStorage
   useEffect(() => {
-    localStorage.setItem("Total-Count", JSON.stringify(counter));
+    localStorage.setItem("Total-Complaint", JSON.stringify(counter));
   });
 
   const handleChange = (event) => {
@@ -65,103 +65,28 @@ export default function CreateComplaintForm() {
   }
   //generate ticket number upon click submit button
   function makeTicketNumber() {
-    setComplaints(...complaint, (ticketNumber) => ticketNumber + 1);
+    setComplaints(...complaint, (ticketNumber) => ticketNumber);
   }
   return (
     <>
+      <Box bgcolor="black">
+        <img src="/images/MU_Logo.ico" alt="" />
+        <Box>
+          <Button onClick={routeChange}>Home</Button>
+        </Box>
+      </Box>
       <h2>Complaint Form</h2>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-        <AppBar className={classes.appBar} position="static" color="inherit">
-          <Button onClick={routeChange}>Home</Button>
-        </AppBar>
         <Container maxWidth="lg">
-          <Box>
-            {/* Create anoymous checkbox */}
-            <FormControlLabel
-              control={<Checkbox onChange={handleCheckbox} checked={checked} />}
-              label="Anonymous"
-            />
-
-            {/* Create drop down list for complainttypes */}
-            <FormControl required sx={{ m: 1, minWidth: 120 }}>
-              <InputLabel id="demo-simple-select-required-label">
-                Type
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-required-label"
-                id="demo-simple-select-required"
-                value={complaint.type}
-                label="Type *"
-                onChange={(handleChange) => {
-                  setComplaints({
-                    ...complaint,
-                    type: handleChange.target.value,
-                  });
-                }}
-              >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value="Complaint">Complaint</MenuItem>
-                <MenuItem value="Appeal">Appeal</MenuItem>
-                <MenuItem value="Feedback">Feedback</MenuItem>
-              </Select>
-              <FormHelperText>Required</FormHelperText>
-            </FormControl>
-          </Box>
-
           <Box
             component="form"
             sx={{
               "& .MuiTextField-root": { m: 1, width: "25ch" },
             }}
-            noValidate
+            validate
             autoComplete="off"
           >
             <div>
-              {/* Ternary operator to display textfield for name */}
-              {checked ? (
-                <TextField
-                  disabled
-                  id="outlined-required"
-                  label="Disabled"
-                  value="Anoymous"
-                  onChange={() => {
-                    setComplaints({ ...complaint, name: "Anoymous" });
-                  }}
-                />
-              ) : (
-                <TextField
-                  required
-                  id="outlined-disabled"
-                  label="Name"
-                  value={complaint.name}
-                  onChange={(event) => {
-                    setComplaints({ ...complaint, name: event.target.value });
-                  }}
-                />
-              )}
-
-              {/* Ternary operator to display textfield for student/staff number */}
-              {checked ? (
-                <TextField
-                  disabled
-                  id="outlined-required"
-                  label="Disabled"
-                  defaultValue="*******"
-                />
-              ) : (
-                <TextField
-                  required
-                  id="outlined-disabled"
-                  label="Student/Staff Number"
-                  value={complaint.idNum}
-                  onChange={(event) => {
-                    setComplaints({ ...complaint, idNum: event.target.value });
-                  }}
-                />
-              )}
-
               {/* Create textfield for email with requirements */}
               <TextField
                 required

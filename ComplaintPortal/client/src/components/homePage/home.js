@@ -1,12 +1,12 @@
-// import logo from "../../logo.svg";
+import logo from "../../logo.svg";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
-// import CreateForm from "../createComplaints/createComplaints.js";
 import useStyles from "../../styles.js";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Login from "../login/login.js";
-import { BrowserRouter, Route, Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Button from "@mui/material/Button";
+import "../../App.css";
 
 export default function HomePage() {
   const classes = useStyles();
@@ -26,15 +26,15 @@ export default function HomePage() {
   };
   return (
     <div>
+      <Login />
+      <Box bgcolor="black">
+        <img src="/images/MU_Logo.ico" alt="" />
+      </Box>
       <Container maxWidth="lg">
-        <AppBar className={classes.appBar} position="static" color="inherit">
-          <Typography className={classes.heading} variant="h2" align="center">
-            Complaint Portal v4
-          </Typography>
-          <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-            <Login />
-          </Box>
-        </AppBar>
+        <Typography className={classes.heading} variant="h2" align="center">
+          Complaint Portal v4
+        </Typography>
+
         <h2>Welcome to the complaint portal v4</h2>
         <h3>Please choose the type of form that you wish to submit</h3>
         <Grow in>

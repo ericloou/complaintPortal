@@ -4,8 +4,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
-import { BrowserRouter, Route, Link, useHistory } from "react-router-dom";
-// import Complaint from "../showComplaints/showComplaints.js";
+import { useHistory } from "react-router-dom";
 
 const style = {
   position: "absolute",
@@ -33,7 +32,13 @@ export default function BasicModal() {
 
   return (
     <div>
-      <Button onClick={handleOpen}>Admin Login</Button>
+      <Button
+        onClick={handleOpen}
+        style={{ float: "right" }}
+        sx={{ py: 2, pr: 5 }}
+      >
+        Admin Login
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
