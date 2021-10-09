@@ -30,44 +30,44 @@ export default function BasicModal() {
     history.push(path);
   };
 
+  function handleSubmit() {
+    routeChange();
+  };
+
   return (
-    <div>
-      <Button
-        onClick={handleOpen}
-        style={{ float: "right" }}
-        sx={{ py: 2, pr: 5 }}
-      >
-        Admin Login
-      </Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Department Admin login
-          </Typography>
-          <TextField
-            sx={{ pb: 2 }}
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Login ID"
-          />
-          <TextField
-            sx={{ pr: 5 }}
-            required
-            id="outlined-required"
-            label="Required"
-            defaultValue="Password"
-          />
-          <Button variant="contained" onClick={routeChange}>
-            Login
-          </Button>
-        </Box>
-      </Modal>
-    </div>
+    <div className="loginMain">
+        <Button
+          onClick={handleOpen}
+          style={{ float: "right" }}
+          sx={{ py: 2, pr: 5 }}
+        >
+          Admin Login
+        </Button>
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <form onSubmit={handleSubmit}>
+          <Box sx={style}>
+            <div className="login">
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Department Admin login
+            </Typography>
+            <label> Login ID </label>
+            <input type="text" required />
+            <label> Password </label>
+            <input type="password" required />
+            <Box sx={{ py: 2 }}>
+            <Button type ="submit" variant="contained">
+              Login
+            </Button>
+            </Box>
+            </div>
+          </Box>
+          </form>
+        </Modal>
+        </div>
   );
 }

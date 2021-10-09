@@ -38,6 +38,7 @@ export default function BasicTable() {
 
   return (
     <>
+    <div className ="showFeedbackHeader">
     <Box bgcolor="black">
         <img src="/images/MU_Logo.ico" alt="" />
         <Box>
@@ -46,6 +47,7 @@ export default function BasicTable() {
       </Box>
       <h2>Total Number of Feedbacks: {counter}</h2>
       <h2>All Feedbacks</h2>
+      </div>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
       </Box>
       <Grow in>
@@ -57,9 +59,10 @@ export default function BasicTable() {
               <TableHead>
                 <TableRow>
                   <TableCell>Ticket Number</TableCell>
-                  <TableCell align="right">Type</TableCell>
+                  <TableCell>Message</TableCell>
+                  {/* <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Student/Staff Number</TableCell>
+                  <TableCell align="right">Student/Staff Number</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -68,12 +71,11 @@ export default function BasicTable() {
                     key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {feedback.ticketNumber}
-                    </TableCell>
-                    <TableCell align="right">{feedback.type}</TableCell>
+                    <TableCell component="th" scope="row">{feedback.ticketNumber}</TableCell>
+                    <TableCell align="left">{feedback.message}</TableCell>
+                    {/* <TableCell align="right">{feedback.type}</TableCell>
                     <TableCell align="right">{feedback.name}</TableCell>
-                    <TableCell align="right">{feedback.idNum}</TableCell>
+                    <TableCell align="right">{feedback.idNum}</TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>

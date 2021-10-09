@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, React } from "react";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import MenuItem from "@mui/material/MenuItem";
-import FormHelperText from "@mui/material/FormHelperText";
-import InputLabel from "@mui/material/InputLabel";
+// import Checkbox from "@mui/material/Checkbox";
+// import FormControlLabel from "@mui/material/FormControlLabel";
+// import FormControl from "@mui/material/FormControl";
+// import Select from "@mui/material/Select";
+// import MenuItem from "@mui/material/MenuItem";
+// import FormHelperText from "@mui/material/FormHelperText";
+// import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
 import { Container, AppBar } from "@material-ui/core";
 import useStyles from "../../styles.js";
@@ -22,6 +22,11 @@ export default function CreateComplaintForm() {
     let path = `/`;
     history.push(path);
   };
+
+  const minValue = 1;
+  const maxValue = 999999;
+  const [rng, setRng] = useState(1);
+
   const classes = useStyles();
   const [type, setType] = useState("");
   var [checked, setChecked] = useState(false);
@@ -31,7 +36,7 @@ export default function CreateComplaintForm() {
     idNum: "",
     email: "",
     message: "",
-    ticketNumber: "",
+    ticketNumber: 0,
   });
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
@@ -63,83 +68,76 @@ export default function CreateComplaintForm() {
   function totalCount() {
     setCounter((currentCount) => currentCount + 1);
   }
+
   //generate ticket number upon click submit button
   function makeTicketNumber() {
+    setRng(Math.floor(Math.random() * (maxValue - minValue + 1) + minValue));
+    complaint.ticketNumber = { rng };
     setComplaints(...complaint, (ticketNumber) => ticketNumber);
   }
+  function randomNumberGenerator() {
+    setRng(Math.floor(Math.random() * (maxValue - minValue + 1) + minValue));
+    // complaint.ticketNumber = rng;
+  }
+
+  function handleSubmit() {
+    createComplaint();
+    totalCount();
+    makeTicketNumber();
+    // randomNumberGenerator();
+  }
+
   return (
     <>
-      <Box bgcolor="black">
-        <img src="/images/MU_Logo.ico" alt="" />
-        <Box>
-          <Button onClick={routeChange}>Home</Button>
+      <div className="complaintHeader">
+        <Box bgcolor="black">
+          <img src="/images/MU_Logo.ico" alt="" />
+          <Box>
+            <Button onClick={routeChange}>Home</Button>
+          </Box>
         </Box>
-      </Box>
-      <h2>Complaint Form</h2>
-      <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-        <Container maxWidth="lg">
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
-            validate
-            autoComplete="off"
-          >
-            <div>
+        <h2>Complaint Form</h2>
+        <h2>{rng}</h2>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
+          <Container maxWidth="lg">
+            <div className="createComplain">
               {/* Create textfield for email with requirements */}
-              <TextField
+              <label>Email:</label>
+              <input
+                type="text"
                 required
-                id="outlined-required"
-                label="Email"
                 value={complaint.email}
                 onChange={(event) => {
                   setComplaints({ ...complaint, email: event.target.value });
                 }}
               />
+              {/* Create submit button with top and bottom padding*/}
             </div>
-          </Box>
-
-          {/* Create multiline textfield to contain complaint/appeals messages */}
-          <Box
-            sx={{
-              width: 500,
-              height: 600,
-              maxWidth: "100%",
-              maxHeight: "100%",
-            }}
-          >
-            <TextField
-              required
-              fullWidth
-              label="Message"
-              id="Message"
-              multiline
-              style={{ width: "220%" }}
-              rows={22}
-              value={complaint.message}
-              onChange={(event) => {
-                setComplaints({ ...complaint, message: event.target.value });
-              }}
-            />
-          </Box>
-
-          {/* Create submit button with top and bottom padding*/}
-          <Box sx={{ py: 2 }}>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={() => {
-                createComplaint();
-                totalCount();
-                makeTicketNumber();
-              }}
-            >
-              Submit
-            </Button>
-          </Box>
-        </Container>
-      </Box>
+            <div className="createComplain2">
+              <label>Message: </label>
+              <textarea
+                required
+                value={complaint.message}
+                onChange={(event) => {
+                  setComplaints({ ...complaint, message: event.target.value });
+                }}
+              ></textarea>
+              <Box sx={{ py: 2 }}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  endIcon={<SendIcon />}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </div>
+          </Container>
+        </Box>
+      </form>
     </>
   );
 }

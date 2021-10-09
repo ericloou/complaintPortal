@@ -28,8 +28,10 @@ export default function CreateAppealForm() {
     name: "",
     idNum: "",
     unit: "",
+    email: "",
     message: "",
-    ticketNumber: "A",
+    type:"",
+    ticketNumber: 0,
   });
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
@@ -60,99 +62,110 @@ export default function CreateAppealForm() {
   function makeTicketNumber() {
     setAppeals(...appeal, (ticketNumber) => ticketNumber + 1);
   }
+
+  function handleSubmit() {
+    createAppeal();
+    totalCount();
+    makeTicketNumber();
+    // randomNumberGenerator();
+  }
+
   return (
     <>
-      <Box bgcolor="black">
-        <img src="/images/MU_Logo.ico" alt="" />
-        <Box>
-          <Button onClick={routeChange}>Home</Button>
+      <div className="appealHeader">
+        <Box bgcolor="black">
+          <img src="/images/MU_Logo.ico" alt="" />
+          <Box>
+            <Button onClick={routeChange}>Home</Button>
+          </Box>
         </Box>
-      </Box>
-      <h2>Appeals Form</h2>
-      <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-        <Container maxWidth="lg">
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
+        <h2>Appeals Form</h2>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <div className="appealMain">
+          <label>Name:</label>
+          <input
+            required
+            type="text"
+            value={appeal.name}
+            onChange={(event) => {
+              setAppeals({ ...appeal, name: event.target.value });
             }}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
-              <TextField
-                required
-                id="outlined-disabled"
-                label="Name"
-                value={appeal.name}
-                onChange={(event) => {
-                  setAppeals({ ...appeal, name: event.target.value });
-                }}
-              />
-
-              <TextField
-                required
-                id="outlined-disabled"
-                label="Student/Staff Number"
-                value={appeal.idNum}
-                onChange={(event) => {
-                  setAppeals({ ...appeal, idNum: event.target.value });
-                }}
-              />
-
-              {/* Create textfield for email with requirements */}
-              <TextField
-                required
-                id="outlined-required"
-                label="Module Number"
-                value={appeal.unit}
-                onChange={(event) => {
-                  setAppeals({ ...appeal, unit: event.target.value });
-                }}
-              />
-            </div>
-          </Box>
-
+          />
+        </div>
+        <div className="appealMain">
+          <label>Student/Staff ID:</label>
+          <input
+            required
+            type="text"
+            style={{ paddingLeft: "15px" }}
+            value={appeal.idNum}
+            onChange={(event) => {
+              setAppeals({ ...appeal, idNum: event.target.value });
+            }}
+          />
+        </div>
+        <div className="appealMain">
+          <label>Module Number:</label>
+          <input
+            required
+            type="text"
+            style={{ paddingLeft: "15px" }}
+            value={appeal.unit}
+            onChange={(event) => {
+              setAppeals({ ...appeal, unit: event.target.value });
+            }}
+          />
+        </div>
+        <div className="appealMain">
+          {/* Create textfield for email with requirements */}
+          <label>Email:</label>
+          <input
+            required
+            type="text"
+            aria-describedby="logicHelp"
+            value={appeal.email}
+            onChange={(event) => {
+              setAppeals({ ...appeal, email: event.target.value });
+            }}
+          />
+        </div>
+        <div className="appealMain">
+          <label>Type of appeal</label>
+          <select
+          required
+          value={appeal.type}
+          onChange={(event) => {
+            setAppeals({ ...appeal, type: event.target.value });
+          }}>
+            <option value=""></option>
+            <option value="Quiz">Quiz</option>
+            <option value="Lab">Lab</option>
+            <option value="Assignment 1">Assignment 1</option>
+            <option value="Assignment 2">Assignment 2</option>
+            <option value="Exam">Exam</option>
+          </select>
+          </div>
+        <div className="appeal2">
           {/* Create multiline textfield to contain complaint/appeals messages */}
-          <Box
-            sx={{
-              width: 500,
-              height: 600,
-              maxWidth: "100%",
-              maxHeight: "100%",
+          <label>Message: </label>
+          <textarea
+            required
+            value={appeal.message}
+            onChange={(event) => {
+              setAppeals({ ...appeal, message: event.target.value });
             }}
-          >
-            <TextField
-              required
-              fullWidth
-              label="Message"
-              id="Message"
-              multiline
-              style={{ width: "220%" }}
-              rows={22}
-              value={appeal.message}
-              onChange={(event) => {
-                setAppeals({ ...appeal, message: event.target.value });
-              }}
-            />
-          </Box>
+          ></textarea>
 
           {/* Create submit button with top and bottom padding*/}
           <Box sx={{ py: 2 }}>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={() => {
-                createAppeal();
-                totalCount();
-                makeTicketNumber();
-              }}
-            >
+            <Button type="submit" variant="contained" endIcon={<SendIcon />}>
               Submit
             </Button>
           </Box>
-        </Container>
-      </Box>
+        </div>
+      </form>
     </>
   );
 }

@@ -54,79 +54,65 @@ export default function CreateFeedbackForm() {
   function makeTicketNumber() {
     setFeedbacks(...feedback, (ticketNumber) => ticketNumber + 1);
   }
+
+  function handleSubmit() {
+    createFeedback();
+    totalCount();
+    makeTicketNumber();
+    // randomNumberGenerator();
+  }
+
   return (
     <>
-      <Box bgcolor="black">
-        <img src="/images/MU_Logo.ico" alt="" />
-        <Box>
-          <Button onClick={routeChange}>Home</Button>
+      <div className="createFeedbackHeader">
+        <Box bgcolor="black">
+          <img src="/images/MU_Logo.ico" alt="" />
+          <Box>
+            <Button onClick={routeChange}>Home</Button>
+          </Box>
         </Box>
-      </Box>
-      <h2>Complaint Form</h2>
-      <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-        <Container maxWidth="lg">
-          <Box
-            component="form"
-            sx={{
-              "& .MuiTextField-root": { m: 1, width: "25ch" },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <div>
+        <h2>Complaint Form</h2>
+      </div>
+
+      <form onSubmit={handleSubmit}>
+        <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
+          <Container maxWidth="lg">
+            <div className="createFeedback">
               {/* Create textfield for email with requirements */}
-              <TextField
+              <label>Email:</label>
+              <input
                 required
-                id="outlined-required"
-                label="Email"
+                type="text"
                 value={feedback.unit}
                 onChange={(event) => {
                   setFeedbacks({ ...feedback, unit: event.target.value });
                 }}
               />
             </div>
-          </Box>
-
-          {/* Create multiline textfield to contain complaint/appeals messages */}
-          <Box
-            sx={{
-              width: 500,
-              height: 600,
-              maxWidth: "100%",
-              maxHeight: "100%",
-            }}
-          >
-            <TextField
-              required
-              fullWidth
-              label="Message"
-              id="Message"
-              multiline
-              style={{ width: "220%" }}
-              rows={22}
-              value={feedback.message}
-              onChange={(event) => {
-                setFeedbacks({ ...feedback, message: event.target.value });
-              }}
-            />
-          </Box>
-
-          {/* Create submit button with top and bottom padding*/}
-          <Box sx={{ py: 2 }}>
-            <Button
-              variant="contained"
-              endIcon={<SendIcon />}
-              onClick={() => {
-                createFeedback();
-                totalCount();
-                makeTicketNumber();
-              }}
-            >
-              Submit
-            </Button>
-          </Box>
-        </Container>
-      </Box>
+            <div className="createFeedback2">
+              {/* Create multiline textfield to contain complaint/appeals messages */}
+              <label>Message: </label>
+              <textarea
+                required
+                value={feedback.message}
+                onChange={(event) => {
+                  setFeedbacks({ ...feedback, message: event.target.value });
+                }}
+              ></textarea>
+              {/* Create submit button with top and bottom padding*/}
+              <Box sx={{ py: 2 }}>
+                <Button
+                  variant="contained"
+                  type="submit"
+                  endIcon={<SendIcon />}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </div>
+          </Container>
+        </Box>
+      </form>
     </>
   );
 }

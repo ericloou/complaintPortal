@@ -30,45 +30,48 @@ export default function HomePage() {
     history.push(path);
   };
   return (
-    <div>
-      <Logout/>
-      <Box bgcolor="black">
-        <img src="/images/MU_Logo.ico" alt="" />
-      </Box>
-      <Container maxWidth="lg">
+    <>
+      <div className="adminHome">
+        <Logout />
+        <Box bgcolor="black">
+          <img src="/images/MU_Logo.ico" alt="" />
+        </Box>
+      </div>
+      <div className="adminHomeBody">
+        <Container maxWidth="lg">
           <Typography className={classes.heading} variant="h2" align="center">
             Complaint Portal v4 Admin Page
           </Typography>
-          <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
-          </Box>
-        <h2>Welcome to the complaint portal v4 Admin Page</h2>
-        <h3>Please choose the type of form that you wish to view</h3>
-        <Grow in>
-          <Container>
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="stretch"
-            ></Grid>
-            <Grid item xs={12} sm={10}>
-              <Button variant="text" onClick={complaintRoute}>
-                Complaint
-              </Button>
-              <Button variant="text" onClick={appealRoute}>
-                Appeal
-              </Button>
-              <Button variant="text" onClick={feedbackRoute}>
-                Feedback
-              </Button>
-              <AppBar
-                className={classes.appBar}
-                position="static"
-                color="inherit"
-              ></AppBar>
-            </Grid>
-          </Container>
-        </Grow>
-      </Container>
-    </div>
+          <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}></Box>
+          <h2>Welcome to the complaint portal v4 Admin Page</h2>
+          <h3>Please choose the type of form that you wish to view</h3>
+          <Grow in>
+            <Container>
+              <Grid
+                container
+                justifyContent="space-between"
+                alignItems="stretch"
+              ></Grid>
+              <Grid item xs={12} sm={10}>
+                <Button variant="text" onClick={complaintRoute}>
+                  Complaint
+                </Button>
+                <Button variant="text" onClick={appealRoute}>
+                  Appeal
+                </Button>
+                <Button variant="text" onClick={feedbackRoute}>
+                  Feedback
+                </Button>
+                <AppBar
+                  className={classes.appBar}
+                  position="static"
+                  color="inherit"
+                ></AppBar>
+              </Grid>
+            </Container>
+          </Grow>
+        </Container>
+      </div>
+    </>
   );
 }

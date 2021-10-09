@@ -39,6 +39,7 @@ export default function BasicTable() {
 
   return (
     <>
+    <div className="showComplaintHeader">
     <Box bgcolor="black">
         <img src="/images/MU_Logo.ico" alt="" />
         <Box>
@@ -47,6 +48,7 @@ export default function BasicTable() {
       </Box>
       <h2>Total Number of complaints: {counter}</h2>
       <h2>All Complaints</h2>
+      </div>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
       
       </Box>
@@ -59,9 +61,10 @@ export default function BasicTable() {
               <TableHead>
                 <TableRow>
                   <TableCell>Ticket Number</TableCell>
-                  <TableCell align="right">Type</TableCell>
+                  <TableCell>Message</TableCell>
+                  {/* <TableCell align="right">Type</TableCell>
                   <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Student/Staff Number</TableCell>
+                  <TableCell align="right">Student/Staff Number</TableCell> */}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -73,9 +76,10 @@ export default function BasicTable() {
                     <TableCell component="th" scope="row">
                       {complaint.ticketNumber}
                     </TableCell>
-                    <TableCell align="right">{complaint.type}</TableCell>
+                    <TableCell align="left">{complaint.message}</TableCell>
+                    {/* <TableCell align="right">{complaint.type}</TableCell>
                     <TableCell align="right">{complaint.name}</TableCell>
-                    <TableCell align="right">{complaint.idNum}</TableCell>
+                    <TableCell align="right">{complaint.idNum}</TableCell> */}
                   </TableRow>
                 ))}
               </TableBody>

@@ -6,7 +6,7 @@ const complaintSchema = Mongoose.Schema({
     idNum: String,
     email: String,
     message: String,
-    ticketNumber: String,
+    ticketNumber: Number,
     
 })
 

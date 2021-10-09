@@ -39,6 +39,7 @@ export default function BasicTable() {
 
   return (
     <>
+    <div className="showAppealHeader">
     <Box bgcolor="black">
         <img src="/images/MU_Logo.ico" alt="" />
         <Box>
@@ -47,6 +48,7 @@ export default function BasicTable() {
       </Box>
       <h2>Total Number of Appeals: {counter}</h2>
       <h2>All Appeals</h2>
+      </div>
       <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
       </Box>
       <Grow in>
@@ -69,9 +71,7 @@ export default function BasicTable() {
                     key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row">
-                      {appeal.ticketNumber}
-                    </TableCell>
+                    <TableCell component="th" scope="row">{appeal.ticketNumber}</TableCell>
                     <TableCell align="right">{appeal.type}</TableCell>
                     <TableCell align="right">{appeal.name}</TableCell>
                     <TableCell align="right">{appeal.idNum}</TableCell>

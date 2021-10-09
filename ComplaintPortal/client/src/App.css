@@ -37,7 +37,165 @@
   }
 }
 
-img{
+img {
   height: 150px;
   width: 150px;
+}
+
+/* create complaint form styles */
+.createComplain {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+.createComplain2 {
+  width: 600px;
+  height: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
+.createComplain input {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.createComplain2 textarea {
+  width: 100%;
+  height: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.complaintHeader Button {
+  color: white;
+  font-weight: bold;
+}
+
+/* login styles */
+.login {
+  max-width: 300px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.loginMain Button {
+  color: white;
+  font-weight: bold;
+}
+
+.login input {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 0 auto;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: block;
+}
+
+/* create appeal form styles*/
+.appealMain {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px 30px;
+  display: inline-block;
+}
+.appeal2 {
+  width: 600px;
+  height: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.appealHeader Button {
+  color: white;
+  font-weight: bold;
+}
+
+.appeal2 textarea {
+  width: 100%;
+  height: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.appealMain input,
+select {
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+/* create feedback form style */
+.createFeedback {
+  max-width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+.createFeedback2 {
+  width: 600px;
+  height: 200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.createFeedbackHeader Button{
+  color: white;
+  font-weight: bold;
+}
+
+.createFeedback input{
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.createFeedback2 textarea {
+  width: 100%;
+  height: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
+}
+
+/* show feedback form styles */
+.showFeedbackHeader Button{
+  color: white;
+  font-weight: bold;
+}
+
+/* show complaint form styles */
+.showComplaintHeader Button{
+  color: white;
+  font-weight: bold;
+}
+
+/* show appeal form styles */
+.showAppealHeader Button{
+  color: white;
+  font-weight: bold;
+}
+
+/* admin home page styles */
+.adminHome Button{
+  color: white;
+  font-weight: bold;
 }
