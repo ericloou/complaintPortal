@@ -96,7 +96,7 @@ img {
   margin: 0 auto;
   border: 1px solid black;
   box-sizing: border-box;
-  display: block;
+  display: flex;
 }
 
 /* create appeal form styles*/
@@ -198,4 +198,18 @@ select {
 .adminHome Button{
   color: white;
   font-weight: bold;
+}
+
+.complaintModal {
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+.complaintModal text{
+  width: 100%;
+  padding: 6px 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  box-sizing: border-box;
+  display: flex;
 }

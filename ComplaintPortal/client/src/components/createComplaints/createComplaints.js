@@ -32,8 +32,6 @@ export default function CreateComplaintForm() {
   var [checked, setChecked] = useState(false);
   const [counter, setCounter] = useState(0);
   const [complaint, setComplaints] = useState({
-    name: "",
-    idNum: "",
     email: "",
     message: "",
     ticketNumber: 0,
@@ -97,7 +95,7 @@ export default function CreateComplaintForm() {
           </Box>
         </Box>
         <h2>Complaint Form</h2>
-        <h2>{rng}</h2>
+        {/* <h2>{rng}</h2> */}
       </div>
 
       <form onSubmit={handleSubmit}>

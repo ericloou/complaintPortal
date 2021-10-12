@@ -1,12 +1,7 @@
 import express from "express";
-import { getComplaints, createComplaint } from "../controllers/complaints.js";
-import { createUser } from "../controllers/users.js";
-// import complaint from "../models/complaints.js";
+import { createUser, getUser } from "../controllers/users.js";
 
 const router = express.Router();
-router.get("/", getComplaints);
-router.post("/", createComplaint);
-
-//router.get("/", getComplaints);
+router.post("/login", getUser);
 router.post("/", createUser);
 export default router;

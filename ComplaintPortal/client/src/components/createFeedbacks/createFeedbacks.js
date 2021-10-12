@@ -71,7 +71,7 @@ export default function CreateFeedbackForm() {
             <Button onClick={routeChange}>Home</Button>
           </Box>
         </Box>
-        <h2>Complaint Form</h2>
+        <h2>Feedback Form</h2>
       </div>
 
       <form onSubmit={handleSubmit}>
