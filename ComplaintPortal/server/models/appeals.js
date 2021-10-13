@@ -3,13 +3,14 @@ import Mongoose from "mongoose";
 //create a function to get an object
 const appealSchema = Mongoose.Schema(
   {
-    name: String,
-    idNum: String,
-    unit: String,
-    email: String,
-    message: String,
-    type: String,
-    ticketNumber: Number,
+    name: { type: String },
+    idNum: { type: String },
+    unit: { type: String },
+    email: { type: String },
+    message: { type: String },
+    type: { type: String },
+    ticketNumber: { type: String },
+    date: {type: String},
   },
   { timestamp: true }
 );

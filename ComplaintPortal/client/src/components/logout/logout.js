@@ -15,7 +15,10 @@ export default function Logout() {
   return (
     <div>
       <Button
-        onClick={routeChange}
+        onClick={() => {
+          localStorage.removeItem("userInfo");
+          routeChange();
+        }}
         style={{ float: "right" }}
         sx={{ py: 2, pr: 5 }}
       >

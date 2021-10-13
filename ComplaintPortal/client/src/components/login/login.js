@@ -23,7 +23,7 @@ const style = {
   p: 4,
 };
 
-export default function BasicModal(props) {
+export default function BasicModal(useHistory) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -31,12 +31,6 @@ export default function BasicModal(props) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
-
-  const routeChange = () => {
-    let path = `/adminhome`;
-    history.push(path);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -59,6 +53,7 @@ export default function BasicModal(props) {
       console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
+      window.location.reload(false);
     } catch (error) {
       setError(error.response.data.message);
       setLoading(false);

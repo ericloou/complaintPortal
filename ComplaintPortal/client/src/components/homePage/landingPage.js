@@ -1,7 +1,7 @@
 import logo from "../../logo.svg";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import useStyles from "../../styles.js";
-import * as React from "react";
+import React, { useEffect } from "react";
 import Box from "@mui/material/Box";
 import Login from "../login/login.js";
 import { useHistory } from "react-router-dom";
@@ -24,6 +24,14 @@ export default function HomePage() {
     let path = `/createfeedbacks`;
     history.push(path);
   };
+
+  useEffect(()=> {
+    const userInfo = localStorage.getItem("userInfo");
+    if(userInfo){
+      history.push("/adminhome");
+    }
+  },[history])
+
   return (
     <div>
       <Login />

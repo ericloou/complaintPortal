@@ -11,7 +11,7 @@ import "./App.css";
 import useStyles from "./styles.js";
 // import Login from "./components/login/login.js";
 import { Route } from "react-router-dom";
-import HomePage from "./components/homePage/home.js";
+import HomePage from "./components/homePage/landingPage.js";
 import AdminHomePage from "./components/homePage/adminHome.js";
 
 function App() {

@@ -3,11 +3,10 @@ import Mongoose from "mongoose";
 //create a function to get an object
 const feedbackSchema = Mongoose.Schema(
   {
-    name: String,
-    idNum: String,
-    unit: String,
-    message: String,
-    ticketNumber: String,
+    email: { type: String },
+    message: { type: String },
+    ticketNumber: { type: String },
+    date: { type: String },
   },
   { timestamp: true }
 );

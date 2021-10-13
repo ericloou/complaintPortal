@@ -1,18 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, React } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import FormControl from "@mui/material/FormControl";
-// import Select from "@mui/material/Select";
-// import MenuItem from "@mui/material/MenuItem";
-// import FormHelperText from "@mui/material/FormHelperText";
-// import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
-import { Container, Grow, Grid, AppBar } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import useStyles from "../../styles.js";
 import { useHistory } from "react-router-dom";
+import ErrorMessage from "../errorMessage.js";
 
 export default function CreateAppealForm() {
   const history = useHistory();
@@ -21,18 +15,20 @@ export default function CreateAppealForm() {
     let path = `/`;
     history.push(path);
   };
-  const classes = useStyles();
+
+  const minValue = 1;
+  const maxValue = 999999999;
   const [type, setType] = useState("");
   const [counter, setCounter] = useState(0);
-  const [appeal, setAppeals] = useState({
-    name: "",
-    idNum: "",
-    unit: "",
-    email: "",
-    message: "",
-    type:"",
-    ticketNumber: 0,
-  });
+  const [name, setName] = useState("");
+  const [idNum, setIdNum] = useState("");
+  const [unit, setUnit] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [ticketNumber, setTicketNumber] = useState(0);
+  const [error, setError] = useState(false);
+  const [date, setDate] = useState("");
+
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
     const adata = localStorage.getItem("Total-Appeal");
@@ -45,30 +41,71 @@ export default function CreateAppealForm() {
     localStorage.setItem("Total-Appeal", JSON.stringify(counter));
   });
 
-  const handleChange = (event) => {
-    setType(event.target.value);
-    console.log(event.target.value);
-  };
-
-  const createAppeal = () => {
-    axios.post("http://localhost:5000/appeals", appeal);
-    window.location.reload(false); //refresh the entie page when submit button is clicked
-  };
-
   function totalCount() {
     setCounter((currentCount) => currentCount + 1);
   }
+  function currentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    setDate(`${date}"/"${month < 10 ? `0${month}` : `${month}`}"/"${year}`);
+  }
   //generate ticket number upon click submit button
   function makeTicketNumber() {
-    setAppeals(...appeal, (ticketNumber) => ticketNumber + 1);
+    setTicketNumber(
+      Math.floor(Math.random() * (maxValue - minValue + 1) + minValue)
+    );
   }
 
-  function handleSubmit() {
-    createAppeal();
-    totalCount();
-    makeTicketNumber();
-    // randomNumberGenerator();
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(
+      "name:",
+      name,
+      "idNum: ",
+      idNum,
+      "unit: ",
+      unit,
+      "email: ",
+      email,
+      "message: ",
+      message,
+      "type: ",
+      type,
+      "ticket: ",
+      ticketNumber,
+      "date: ",
+      date,
+    );
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:5000/appeals",
+        {
+          name,
+          idNum,
+          unit,
+          email,
+          message,
+          type,
+          ticketNumber,
+          date,
+        },
+        config
+      );
+      console.log(data);
+      totalCount();
+      window.location.reload(false);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
 
   return (
     <>
@@ -88,10 +125,9 @@ export default function CreateAppealForm() {
           <input
             required
             type="text"
-            value={appeal.name}
-            onChange={(event) => {
-              setAppeals({ ...appeal, name: event.target.value });
-            }}
+            value={name}
+            placeholder="Enter Name"
+            onInput={(e) => setName(e.target.value)}
           />
         </div>
         <div className="appealMain">
@@ -100,10 +136,9 @@ export default function CreateAppealForm() {
             required
             type="text"
             style={{ paddingLeft: "15px" }}
-            value={appeal.idNum}
-            onChange={(event) => {
-              setAppeals({ ...appeal, idNum: event.target.value });
-            }}
+            value={idNum}
+            placeholder="Enter student/staff ID"
+            onInput={(e) => setIdNum(e.target.value)}
           />
         </div>
         <div className="appealMain">
@@ -112,10 +147,9 @@ export default function CreateAppealForm() {
             required
             type="text"
             style={{ paddingLeft: "15px" }}
-            value={appeal.unit}
-            onChange={(event) => {
-              setAppeals({ ...appeal, unit: event.target.value });
-            }}
+            value={unit}
+            placeholder="Enter unit/module number"
+            onInput={(e) => setUnit(e.target.value)}
           />
         </div>
         <div className="appealMain">
@@ -125,19 +159,18 @@ export default function CreateAppealForm() {
             required
             type="text"
             aria-describedby="logicHelp"
-            value={appeal.email}
-            onChange={(event) => {
-              setAppeals({ ...appeal, email: event.target.value });
-            }}
+            value={email}
+            placeholder="Enter unit/module number"
+            onInput={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="appealMain">
           <label>Type of appeal</label>
           <select
           required
-          value={appeal.type}
+          value={type}
           onChange={(event) => {
-            setAppeals({ ...appeal, type: event.target.value });
+            setType(event.target.value);
           }}>
             <option value=""></option>
             <option value="Quiz">Quiz</option>
@@ -152,15 +185,22 @@ export default function CreateAppealForm() {
           <label>Message: </label>
           <textarea
             required
-            value={appeal.message}
-            onChange={(event) => {
-              setAppeals({ ...appeal, message: event.target.value });
-            }}
+            value={message}
+            placeholder="Enter message"
+            onInput={(e) => setMessage(e.target.value)}
           ></textarea>
 
           {/* Create submit button with top and bottom padding*/}
           <Box sx={{ py: 2 }}>
-            <Button type="submit" variant="contained" endIcon={<SendIcon />}>
+            <Button 
+            type="submit" 
+            variant="contained" 
+            endIcon={<SendIcon />}
+            onClick={()=>{
+              makeTicketNumber();
+              currentDate();
+            }}
+            >
               Submit
             </Button>
           </Box>

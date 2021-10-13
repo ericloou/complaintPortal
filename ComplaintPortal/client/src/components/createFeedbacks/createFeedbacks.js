@@ -1,30 +1,31 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, React } from "react";
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { Container, Grow, Grid, AppBar } from "@material-ui/core";
+import { Container} from "@material-ui/core";
 import useStyles from "../../styles.js";
 import { useHistory } from "react-router-dom";
+import ErrorMessage from "../errorMessage.js";
 
 export default function CreateFeedbackForm() {
   const history = useHistory();
-
   const routeChange = () => {
     let path = `/`;
     history.push(path);
   };
-  const classes = useStyles();
-  const [type, setType] = useState("");
+
+
+  const minValue = 1;
+  const maxValue = 999999999;
+  const [rng, setRng] = useState(1);
   const [counter, setCounter] = useState(0);
-  const [feedback, setFeedbacks] = useState({
-    name: "",
-    idNum: "",
-    unit: "",
-    message: "",
-    ticketNumber: "F",
-  });
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [ticketNumber, setTicketNumber] = useState(0);
+  const [error, setError] = useState(false);
+  const [date, setDate] = useState("");
+
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
     const fdata = localStorage.getItem("Total-Feedback");
@@ -37,30 +38,60 @@ export default function CreateFeedbackForm() {
     localStorage.setItem("Total-Feedback", JSON.stringify(counter));
   });
 
-  const handleChange = (event) => {
-    setType(event.target.value);
-    console.log(event.target.value);
-  };
-
-  const createFeedback = () => {
-    axios.post("http://localhost:5000/feedbacks", feedback);
-    window.location.reload(false); //refresh the entie page when submit button is clicked
-  };
-
   function totalCount() {
     setCounter((currentCount) => currentCount + 1);
   }
+
+  function currentDate() {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    let year = newDate.getFullYear();
+
+    setDate(`${date}"/"${month < 10 ? `0${month}` : `${month}`}"/"${year}`);
+  }
   //generate ticket number upon click submit button
   function makeTicketNumber() {
-    setFeedbacks(...feedback, (ticketNumber) => ticketNumber + 1);
+    setTicketNumber(
+      Math.floor(Math.random() * (maxValue - minValue + 1) + minValue)
+    );
   }
 
-  function handleSubmit() {
-    createFeedback();
-    totalCount();
-    makeTicketNumber();
-    // randomNumberGenerator();
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(
+      "email:",
+      email,
+      "message: ",
+      message,
+      "ticket: ",
+      ticketNumber,
+      "date: ",
+      date,
+    );
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.post(
+        "http://localhost:5000/feedbacks",
+        {
+          email,
+          message,
+          ticketNumber,
+          date,
+        },
+        config
+      );
+      console.log(data);
+      totalCount();
+      window.location.reload(false);
+    } catch (error) {
+      setError(error.response.data.message);
+    }
+  };
 
   return (
     <>
@@ -83,10 +114,9 @@ export default function CreateFeedbackForm() {
               <input
                 required
                 type="text"
-                value={feedback.unit}
-                onChange={(event) => {
-                  setFeedbacks({ ...feedback, unit: event.target.value });
-                }}
+                value={email}
+                placeholder="Enter email"
+                onInput={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="createFeedback2">
@@ -94,10 +124,9 @@ export default function CreateFeedbackForm() {
               <label>Message: </label>
               <textarea
                 required
-                value={feedback.message}
-                onChange={(event) => {
-                  setFeedbacks({ ...feedback, message: event.target.value });
-                }}
+                value={message}
+                placeholder="Enter message"
+                onInput={(e) => setMessage(e.target.value)}
               ></textarea>
               {/* Create submit button with top and bottom padding*/}
               <Box sx={{ py: 2 }}>
@@ -105,6 +134,10 @@ export default function CreateFeedbackForm() {
                   variant="contained"
                   type="submit"
                   endIcon={<SendIcon />}
+                  onClick={()=>{
+                    makeTicketNumber();
+                    currentDate();
+                  }}
                 >
                   Submit
                 </Button>
