@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
 import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
@@ -34,12 +35,17 @@ const style = {
 
 export default function BasicTable() {
   const [open, setOpen] = React.useState(false);
-  const [getId, setId] = useState(0);
+  // const [getId, setId] = useState(0);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setDueDate(null);
+    setModalComplaint({});
+  };
   const [counter, setCounter] = useState(0);
   const [complaintList, setComplaintList] = useState([]);
   const [dueDate, setDueDate] = useState(null);
+  const [modalComplaint, setModalComplaint] = useState({});
 
   useEffect(() => {
     axios.get("http://localhost:5000/complaints").then((allComplaints) => {
@@ -65,7 +71,7 @@ export default function BasicTable() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(complaintList, "dueDate: ", dueDate);
+    const dueDateToSend = dueDate.toLocaleDateString();
     try {
       const config = {
         headers: {
@@ -73,13 +79,26 @@ export default function BasicTable() {
         },
       };
       const { data } = await axios.put(
-        console.log(data),
         "http://localhost:5000/complaints",
         {
-          dueDate,
+          dueDate: dueDateToSend,
+          id: modalComplaint._id,
         },
         config
       );
+      console.log(data);
+      window.location.reload(false);
+      handleClose();
+    } catch (error) {
+      // setError(error.response.data.message);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const { data } = await axios.delete("http://localhost:5000/complaints", {
+        data: { id },
+      });
       console.log(data);
       window.location.reload(false);
     } catch (error) {
@@ -118,7 +137,8 @@ export default function BasicTable() {
                     <TableCell>Message</TableCell>
                     <TableCell>Submission Date</TableCell>
                     <TableCell>Due Date</TableCell>
-                    <TableCell>Action</TableCell>
+                    <TableCell>Edit</TableCell>
+                    <TableCell>Delete</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -139,60 +159,68 @@ export default function BasicTable() {
                           aria-label="edit picture"
                           component="span"
                           onClick={() => {
-                            setId(complaint._id);
+                            setModalComplaint(complaint);
                             handleOpen();
                           }}
                         >
                           <EditIcon />
                         </IconButton>
-                        <Modal
-                          open={open}
-                          onClose={handleClose}
+                      </TableCell>
+                      <TableCell align="left">
+                        <IconButton
+                          color="primary"
+                          aria-label="delete"
+                          component="span"
+                          onClick={() => {
+                            handleDelete(complaint._id);
+                          }}
                         >
-                          <form onSubmit={handleSubmit}>
-                            <Box sx={style}>
-                              <div className="complaintModal">
-                                <Typography
-                                  id="modal-modal-title"
-                                  variant="h6"
-                                  component="h2"
-                                >
-                                  Editing
-                                </Typography>
-                                <label>
-                                  Ticket Number: {complaint.ticketNumber}
-                                </label>
-                                <label>Message: {complaint.message} </label>
-                                <h3>Set DueDate</h3>
-                                <LocalizationProvider
-                                  dateAdapter={AdapterDateFns}
-                                >
-                                  <DatePicker
-                                    required
-                                    // placeholder="Select a date"
-                                    value={dueDate}
-                                    onChange={(newValue) => {
-                                      setDueDate(newValue);
-                                      console.log(newValue);
-                                      console.log(complaint._id);
-                                    }}
-                                    renderInput={(params) => (
-                                      <TextField {...params} />
-                                    )}
-                                  />
-                                </LocalizationProvider>
-                                <Box sx={{ py: 2 }}>
-                                  <Button type="submit" variant="contained">
-                                    Save
-                                  </Button>
-                                </Box>
-                              </div>
-                            </Box>
-                          </form>
-                        </Modal>
+                          <DeleteIcon />
+                        </IconButton>
                       </TableCell>
                     </TableRow>
                   ))}
+
+                  <Modal open={open} onClose={handleClose}>
+                    <form onSubmit={handleSubmit}>
+                      <Box sx={style}>
+                        <div className="complaintModal">
+                          <Typography
+                            id="modal-modal-title"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Editing
+                          </Typography>
+                          <label>
+                            Ticket Number: {modalComplaint.ticketNumber}
+                          </label>
+                          <label>Message: {modalComplaint.message} </label>
+                          <h3>Set DueDate</h3>
+                          <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <DatePicker
+                              required
+                              // placeholder="Select a date"
+                              value={dueDate}
+                              onChange={(newValue) => {
+                                setDueDate(newValue);
+                                console.log(newValue);
+                                console.log(modalComplaint._id);
+                              }}
+                              renderInput={(params) => (
+                                <TextField {...params} />
+                              )}
+                            />
+                          </LocalizationProvider>
+                          <Box sx={{ py: 2 }}>
+                            <Button type="submit" variant="contained">
+                              Save
+                            </Button>
+                          </Box>
+                        </div>
+                      </Box>
+                    </form>
+                  </Modal>
                 </TableBody>
               </Table>
             </TableContainer>
