@@ -22,3 +22,20 @@ export const createComplaint = async (req, res) => {
         res.status(409).json({message: error.message})
     }
 }
+
+export const updateComplaint = async(req, res) => {
+    const dueDate = req.body.dueDate
+    const id = req.body.id
+    console.log(id);
+    try {
+        await ComplaintData.findById(id,(error, complaintToUpdate) =>{
+            console.log(complaintToUpdate);
+            complaintToUpdate.dueDate = dueDate;
+            complaintToUpdate.save();
+
+        })
+    } catch (error) {
+        console.log(error);
+    }
+    res.send("updated");
+}

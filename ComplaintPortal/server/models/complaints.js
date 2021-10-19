@@ -7,6 +7,7 @@ const complaintSchema = Mongoose.Schema(
     message: { type: String },
     ticketNumber: { type: String },
     date: { type: String },
+    dueDate: {type: String},
   },
   { timestamp: true }
 );

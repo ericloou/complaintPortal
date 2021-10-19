@@ -4,12 +4,10 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Loading from "../loading.js";
 import ErrorMessage from "../errorMessage.js";
-import ReactDom from "react-dom";
 
 const style = {
   position: "absolute",

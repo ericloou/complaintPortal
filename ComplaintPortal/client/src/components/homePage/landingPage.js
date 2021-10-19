@@ -1,4 +1,3 @@
-import logo from "../../logo.svg";
 import { Container, AppBar, Typography, Grow, Grid } from "@material-ui/core";
 import useStyles from "../../styles.js";
 import React, { useEffect } from "react";

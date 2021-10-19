@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,10 +11,35 @@ import { Container, Grow, Grid} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import DatePicker from "@mui/lab/DatePicker";
+import TextField from "@mui/material/TextField";
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "background.paper",
+  border: "2px solid #000",
+  boxShadow: 24,
+  p: 4,
+};
 
 export default function BasicTable() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const [counter, setCounter] = useState(0);
   const [feedbackList, setFeedbackList] = useState([]);
+  const [dueDate, setDueDate] = useState(null);
+
   useEffect(() => {
     axios.get("http://localhost:5000/feedbacks").then((allFeedbacks) => {
       setFeedbackList(allFeedbacks.data);
@@ -34,6 +59,33 @@ export default function BasicTable() {
   const routeChange = () => {
     let path = `/adminhome`;
     history.push(path);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(
+      "dueDate: ",
+      dueDate,
+    );
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.put(
+        console.log(data),
+        "http://localhost:5000/feedbacks",
+        {
+          dueDate,
+        },
+        config
+      );
+      console.log(data);
+      window.location.reload(false);
+    } catch (error) {
+      // setError(error.response.data.message);
+    }
   };
 
   return (
@@ -60,9 +112,9 @@ export default function BasicTable() {
                 <TableRow>
                   <TableCell>Ticket Number</TableCell>
                   <TableCell>Message</TableCell>
-                  {/* <TableCell align="right">Type</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Student/Staff Number</TableCell> */}
+                  <TableCell>Submission Date</TableCell>
+                  <TableCell>Due Date</TableCell>
+                  <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -73,9 +125,65 @@ export default function BasicTable() {
                   >
                     <TableCell component="th" scope="row">{feedback.ticketNumber}</TableCell>
                     <TableCell align="left">{feedback.message}</TableCell>
-                    {/* <TableCell align="right">{feedback.type}</TableCell>
-                    <TableCell align="right">{feedback.name}</TableCell>
-                    <TableCell align="right">{feedback.idNum}</TableCell> */}
+                    <TableCell align="left">{feedback.date}</TableCell>
+                    <TableCell align="left">{feedback.dueDate}</TableCell>
+                    <TableCell align="left">
+                        <IconButton
+                          color="primary"
+                          aria-label="edit picture"
+                          component="span"
+                          onClick={() =>{
+                            handleOpen();
+                          }}
+                        >
+                          <EditIcon />
+                        </IconButton>
+                        <Modal
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="modal-modal-title"
+                          aria-describedby="modal-modal-description"
+                        >
+                          <form onSubmit={handleSubmit}>
+                            <Box sx={style}>
+                              <div className="complaintModal">
+                                <Typography
+                                  id="modal-modal-title"
+                                  variant="h6"
+                                  component="h2"
+                                >
+                                  Editing
+                                </Typography>
+                                <label>
+                                  Ticket Number: {feedback.ticketNumber}
+                                </label>
+                                <label>Message: {feedback.message} </label>
+                                <LocalizationProvider
+                                  dateAdapter={AdapterDateFns}
+                                >
+                                  <DatePicker
+                                    required
+                                    // placeholder="Select a date"
+                                    value={dueDate}
+                                    onChange={(newValue) => {
+                                      setDueDate(newValue);
+                                      console.log(dueDate);
+                                    }}
+                                    renderInput={(params) => (
+                                      <TextField {...params} />
+                                    )}
+                                  />
+                                </LocalizationProvider>
+                                <Box sx={{ py: 2 }}>
+                                  <Button type="submit" variant="contained">
+                                    Save
+                                  </Button>
+                                </Box>
+                              </div>
+                            </Box>
+                          </form>
+                        </Modal>
+                      </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

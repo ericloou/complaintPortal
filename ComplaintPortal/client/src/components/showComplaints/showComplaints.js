@@ -34,24 +34,12 @@ const style = {
 
 export default function BasicTable() {
   const [open, setOpen] = React.useState(false);
+  const [getId, setId] = useState(0);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [counter, setCounter] = useState(0);
   const [complaintList, setComplaintList] = useState([]);
-  const [value, setValue] = React.useState(null);
-  const [complaint, setComplaints] = useState({
-    email: "",
-    message: "",
-    ticketNumber: 0,
-    date: "",
-  });
-
-  const editComplaint = (id) => {
-    axios.delete(`http://localhost:5000/complaints/${id}`).then(() => {
-      axios.post("http://localhost:5000/complaints", complaint);
-      window.location.reload(false);
-    });
-  };
+  const [dueDate, setDueDate] = useState(null);
 
   useEffect(() => {
     axios.get("http://localhost:5000/complaints").then((allComplaints) => {
@@ -75,10 +63,29 @@ export default function BasicTable() {
     history.push(path);
   };
 
-  function handleSubmit() {
-    routeChange();
-    editComplaint();
-  }
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log(complaintList, "dueDate: ", dueDate);
+    try {
+      const config = {
+        headers: {
+          "Content-type": "application/json",
+        },
+      };
+      const { data } = await axios.put(
+        console.log(data),
+        "http://localhost:5000/complaints",
+        {
+          dueDate,
+        },
+        config
+      );
+      console.log(data);
+      window.location.reload(false);
+    } catch (error) {
+      // setError(error.response.data.message);
+    }
+  };
 
   return (
     <>
@@ -109,12 +116,9 @@ export default function BasicTable() {
                   <TableRow>
                     <TableCell>Ticket Number</TableCell>
                     <TableCell>Message</TableCell>
+                    <TableCell>Submission Date</TableCell>
                     <TableCell>Due Date</TableCell>
                     <TableCell>Action</TableCell>
-
-                    {/* <TableCell align="right">Type</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Student/Staff Number</TableCell> */}
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -128,20 +132,22 @@ export default function BasicTable() {
                       </TableCell>
                       <TableCell align="left">{complaint.message}</TableCell>
                       <TableCell align="left">{complaint.date}</TableCell>
+                      <TableCell align="left">{complaint.dueDate}</TableCell>
                       <TableCell align="left">
                         <IconButton
                           color="primary"
                           aria-label="edit picture"
                           component="span"
-                          onClick={handleOpen}
+                          onClick={() => {
+                            setId(complaint._id);
+                            handleOpen();
+                          }}
                         >
                           <EditIcon />
                         </IconButton>
                         <Modal
                           open={open}
                           onClose={handleClose}
-                          aria-labelledby="modal-modal-title"
-                          aria-describedby="modal-modal-description"
                         >
                           <form onSubmit={handleSubmit}>
                             <Box sx={style}>
@@ -153,23 +159,22 @@ export default function BasicTable() {
                                 >
                                   Editing
                                 </Typography>
-                                <text>
-                                  Ticket Number:{complaint.ticketNumber}
-                                </text>
-                                <text>Message: {complaint.message} </text>
+                                <label>
+                                  Ticket Number: {complaint.ticketNumber}
+                                </label>
+                                <label>Message: {complaint.message} </label>
+                                <h3>Set DueDate</h3>
                                 <LocalizationProvider
                                   dateAdapter={AdapterDateFns}
                                 >
                                   <DatePicker
                                     required
-                                    label="Select a date"
-                                    value={value}
+                                    // placeholder="Select a date"
+                                    value={dueDate}
                                     onChange={(newValue) => {
-                                      setValue(newValue);
-                                      setComplaints({
-                                        ...complaint,
-                                        date: newValue,
-                                      });
+                                      setDueDate(newValue);
+                                      console.log(newValue);
+                                      console.log(complaint._id);
                                     }}
                                     renderInput={(params) => (
                                       <TextField {...params} />
@@ -186,9 +191,6 @@ export default function BasicTable() {
                           </form>
                         </Modal>
                       </TableCell>
-                      {/* <TableCell align="right">{complaint.type}</TableCell>
-                    <TableCell align="right">{complaint.name}</TableCell>
-                    <TableCell align="right">{complaint.idNum}</TableCell> */}
                     </TableRow>
                   ))}
                 </TableBody>

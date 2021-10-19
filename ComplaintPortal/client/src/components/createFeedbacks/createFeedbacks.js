@@ -48,7 +48,7 @@ export default function CreateFeedbackForm() {
     let month = newDate.getMonth() + 1;
     let year = newDate.getFullYear();
 
-    setDate(`${date}"/"${month < 10 ? `0${month}` : `${month}`}"/"${year}`);
+    setDate(`${date}/${month < 10 ? `0${month}` : `${month}`}/${year}`);
   }
   //generate ticket number upon click submit button
   function makeTicketNumber() {

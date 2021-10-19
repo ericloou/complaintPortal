@@ -200,12 +200,14 @@ select {
   font-weight: bold;
 }
 
+
 .complaintModal {
   max-width: 400px;
   margin: 0 auto;
   text-align: center;
 }
-.complaintModal text{
+
+.complaintModal label{
   width: 100%;
   padding: 6px 10px;
   margin: 10px 0;
