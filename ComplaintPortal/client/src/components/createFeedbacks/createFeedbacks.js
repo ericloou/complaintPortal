@@ -25,6 +25,7 @@ export default function CreateFeedbackForm() {
   const [ticketNumber, setTicketNumber] = useState(0);
   const [error, setError] = useState(false);
   const [date, setDate] = useState("");
+  const [status, setStatus] = useState("");
 
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
@@ -57,6 +58,11 @@ export default function CreateFeedbackForm() {
     );
   }
 
+  //Set the status of the complaint to "Pending" when click on submit button
+  function setNewStatus(){
+    setStatus("Pending");
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -66,6 +72,8 @@ export default function CreateFeedbackForm() {
       message,
       "ticket: ",
       ticketNumber,
+      "status:",
+      status,
       "date: ",
       date,
     );
@@ -81,6 +89,7 @@ export default function CreateFeedbackForm() {
           email,
           message,
           ticketNumber,
+          status,
           date,
         },
         config
@@ -137,6 +146,7 @@ export default function CreateFeedbackForm() {
                   onClick={()=>{
                     makeTicketNumber();
                     currentDate();
+                    setNewStatus();
                   }}
                 >
                   Submit

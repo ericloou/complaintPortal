@@ -28,6 +28,7 @@ export default function CreateAppealForm() {
   const [ticketNumber, setTicketNumber] = useState(0);
   const [error, setError] = useState(false);
   const [date, setDate] = useState("");
+  const [status, setStatus] = useState("");
 
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
@@ -59,6 +60,11 @@ export default function CreateAppealForm() {
     );
   }
 
+  //Set the status of the complaint to "Pending" when click on submit button
+  function setNewStatus(){
+    setStatus("Pending");
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -76,6 +82,8 @@ export default function CreateAppealForm() {
       type,
       "ticket: ",
       ticketNumber,
+      "status:",
+      status,
       "date: ",
       date,
     );
@@ -95,6 +103,7 @@ export default function CreateAppealForm() {
           message,
           type,
           ticketNumber,
+          status,
           date,
         },
         config
@@ -160,7 +169,7 @@ export default function CreateAppealForm() {
             type="text"
             aria-describedby="logicHelp"
             value={email}
-            placeholder="Enter unit/module number"
+            placeholder="Enter Email"
             onInput={(e) => setEmail(e.target.value)}
           />
         </div>
@@ -199,6 +208,7 @@ export default function CreateAppealForm() {
             onClick={()=>{
               makeTicketNumber();
               currentDate();
+              setNewStatus();
             }}
             >
               Submit

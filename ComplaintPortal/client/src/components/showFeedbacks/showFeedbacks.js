@@ -137,6 +137,7 @@ export default function BasicTable() {
                     <TableCell>Message</TableCell>
                     <TableCell>Submission Date</TableCell>
                     <TableCell>Due Date</TableCell>
+                    <TableCell>Status</TableCell>
                     <TableCell>Edit</TableCell>
                     <TableCell>Delete</TableCell>
                   </TableRow>
@@ -153,6 +154,7 @@ export default function BasicTable() {
                       <TableCell align="left">{feedback.message}</TableCell>
                       <TableCell align="left">{feedback.date}</TableCell>
                       <TableCell align="left">{feedback.dueDate}</TableCell>
+                      <TableCell align="left">{feedback.status}</TableCell>
                       <TableCell align="left">
                         <IconButton
                           color="primary"

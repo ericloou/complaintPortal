@@ -20,6 +20,7 @@ export default function CreateComplaintForm() {
   const [rng, setRng] = useState(1);
   const [counter, setCounter] = useState(0);
   const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
   const [message, setMessage] = useState("");
   const [ticketNumber, setTicketNumber] = useState(0);
   const [error, setError] = useState(false);
@@ -56,6 +57,11 @@ export default function CreateComplaintForm() {
     );
   }
 
+  //Set the status of the complaint to "Pending" when click on submit button
+  function setNewStatus(){
+    setStatus("Pending");
+  }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -65,6 +71,8 @@ export default function CreateComplaintForm() {
       message,
       "ticket: ",
       ticketNumber,
+      "status:",
+      status,
       "date: ",
       date,
     );
@@ -80,6 +88,7 @@ export default function CreateComplaintForm() {
           email,
           message,
           ticketNumber,
+          status,
           date,
         },
         config
@@ -135,6 +144,7 @@ export default function CreateComplaintForm() {
                   onClick={()=>{
                     makeTicketNumber();
                     currentDate();
+                    setNewStatus();
                   }}
                 >
                   Submit
