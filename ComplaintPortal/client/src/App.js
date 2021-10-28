@@ -7,6 +7,7 @@ import ShowFeedback from "./components/showFeedbacks/showFeedbacks.js";
 import CreateComplaintForm from "./components/createComplaints/createComplaints.js";
 import CreateAppealForm from "./components/createAppeals/createAppeals.js";
 import CreateFeedbackForm from "./components/createFeedbacks/createFeedbacks.js";
+import DataVisualisation from "./components/DataVisualisation/DataVisualisation.js";
 
 import "./App.css";
 import useStyles from "./styles.js";
@@ -26,6 +27,7 @@ function App() {
       <Route exact path="/showcomplaints" component={ShowComplaint} />
       <Route exact path="/showappeals" component={ShowAppeal} />
       <Route exact path="/showfeedbacks" component={ShowFeedback} />
+      <Route exact path="/DataVisualisation" component={DataVisualisation} />
       {/* Form pages */}
       <Route exact path="/createcomplaints" component={CreateComplaintForm} />
       <Route exact path="/createappeals" component={CreateAppealForm} />

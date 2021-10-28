@@ -62,6 +62,11 @@ export default function BasicTable() {
     }
   }, []);
 
+  //Decrease the counter for every complaint that is deleted
+  function DecrementCount() {
+    setCounter((currentCount) => currentCount - 1);
+  }
+
   const history = useHistory();
 
   const routeChange = () => {
@@ -100,6 +105,8 @@ export default function BasicTable() {
         data: { id },
       });
       console.log(data);
+      //*****(BUG for decrementCount())Will go back to total count once screen refresh******
+      //DecrementCount();
       window.location.reload(false);
     } catch (error) {
       // setError(error.response.data.message);

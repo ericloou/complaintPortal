@@ -23,6 +23,10 @@ export default function HomePage() {
     let path = `/showfeedbacks`;
     history.push(path);
   };
+  const DataVisualisationRoute = () => {
+    let path = `/DataVisualisation`;
+    history.push(path);
+  };
 
   const home = () => {
     let path = `/`;
@@ -60,6 +64,9 @@ export default function HomePage() {
                 </Button>
                 <Button variant="text" onClick={feedbackRoute}>
                   Feedback
+                </Button>
+                <Button variant="text" onClick={DataVisualisationRoute}>
+                  DataVisualisation
                 </Button>
                 <AppBar
                   className={classes.appBar}
