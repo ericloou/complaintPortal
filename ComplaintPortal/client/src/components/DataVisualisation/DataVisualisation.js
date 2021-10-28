@@ -1,25 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import axios from "axios";
-import { Container, Grow, Grid } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
 import Box from "@mui/material/Box";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import TextField from "@mui/material/TextField";
 import {CChart} from "@coreui/react-chartjs";
 
 
