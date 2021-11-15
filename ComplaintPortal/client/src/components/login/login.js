@@ -8,6 +8,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 import Loading from "../loading.js";
 import ErrorMessage from "../errorMessage.js";
+import styles from "../../styles.js";
 
 const style = {
   position: "absolute",
@@ -63,7 +64,8 @@ export default function BasicModal(useHistory) {
       
       <Button
         onClick={handleOpen}
-        style={{ float: "right" }}
+        variant="contained" color="inherit" href="#contained-button"
+        style={{ float: "right" ,color:"black",border:"1px solid #000000"}}
         sx={{ py: 2, pr: 5 }}
       >
         Admin Login

@@ -33,12 +33,42 @@ export default function HomePage() {
 
   return (
     <div>
-      <Login />
-      <Box bgcolor="black">
-        <img src="/images/MU_Logo.ico" alt="" />
-      </Box>
-      <Container maxWidth="lg">
-        <Typography className={classes.heading} variant="h2" align="center">
+      
+        <Grid container direction="row" justifyContent="space-between" alignItems="left">
+          <Grid item xs={12} bgcolor="#e02744">
+        <item><Login/></item>
+        </Grid>
+        <Grid item  xs={12}  sm={12}bgcolor="#e02744">
+        
+        <item><img src="/images/MU_Logo.ico" alt=""/></item>
+        
+        
+        <Grid border="1px solid #000000" item xs={12} sm={15} bgcolor="#e02744">
+              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://www.murdoch.edu.au/';}
+              }>
+                Home
+                </Button>
+              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://www.murdoch.edu.au/about-us';}
+              }>
+                About us
+              </Button>
+              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://www.murdoch.edu.au/contact-us';}}>
+                Contact us
+              </Button>
+              
+ 
+        </Grid>
+        </Grid>
+        </Grid>
+      
+      <Container  >
+        <Typography className={classes.heading} variant="h2" align="center" >
           Complaint Portal v4
         </Typography>
 
@@ -51,7 +81,7 @@ export default function HomePage() {
               justifyContent="space-between"
               alignItems="stretch"
             ></Grid>
-            <Grid item xs={12} sm={10}>
+            <Grid item xs={12} sm={20}>
               <Button variant="text" onClick={complaintRoute}>
                 Complaint
               </Button>

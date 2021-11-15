@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { Container} from "@material-ui/core";
+import { Container,Grid} from "@material-ui/core";
 import useStyles from "../../styles.js";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "../errorMessage.js";
@@ -105,12 +105,32 @@ export default function CreateFeedbackForm() {
   return (
     <>
       <div className="createFeedbackHeader">
-        <Box bgcolor="black">
-          <img src="/images/MU_Logo.ico" alt="" />
-          <Box>
-            <Button onClick={routeChange}>Home</Button>
-          </Box>
-        </Box>
+      <Grid item  xs={12}  sm={20}bgcolor="#e02744">
+        <item><img src="/images/MU_Logo.ico" alt=""/></item>
+        <Grid  item xs={12} sm={15}bgcolor="#e02744">
+              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://www.murdoch.edu.au/';}
+              }>
+                Home
+                </Button>
+              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://www.murdoch.edu.au/about-us';}
+              }>
+                About us
+              </Button>
+              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                e.preventDefault();
+                window.location.href='https://www.murdoch.edu.au/contact-us';}}>
+                Contact us
+              </Button>
+              </Grid>
+        <Grid border="1px solid #000000" item xs={12} sm={15}bgcolor="fffff2">
+          
+          <Button variant="contained" color="error" href="#contained-button" type="button" onClick={routeChange}>Back</Button>
+          </Grid>
+        </Grid>
         <h2>Feedback Form</h2>
       </div>
 

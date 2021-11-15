@@ -80,7 +80,7 @@ const style = {
                 </Button>
                 </Box>
                 </Box>
-                <Box style={{ marginLeft: "auto" }} sx={{ pb: 60, pr: 60, width: 900, height: 300}}>
+                <Box style={{ marginLeft: "auto" }} sx={{ pb: 50, pr: 50, width: 800, height: 200}}>
                 <div className="col-md-6">
                 <h2>Comparison of Complaint/Appeal/Feedback</h2>
                 <div className="chart-wrapper">
