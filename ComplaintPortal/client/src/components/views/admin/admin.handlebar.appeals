@@ -1,0 +1,62 @@
+import { useState, useEffect, React, useRef } from "react";
+import Box from "@mui/material/Box";
+import SendIcon from "@mui/icons-material/Send";
+import Button from "@mui/material/Button";
+import axios from "axios";
+import { Container, Grid } from "@material-ui/core";
+import useStyles from "../../styles.js";
+import { useHistory } from "react-router-dom";
+import ErrorMessage from "../errorMessage.js";
+import emailjs from "emailjs-com";
+
+<h3>Hello {{user_wC8sTfX5ZrzsFiksZ6hpY}} !!!</h3>
+
+<br>
+<br>
+
+<table class="table table-bordered">
+  <thead class="table-success">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">user_wC8sTfX5ZrzsFiksZ6hpY</th>
+      <th scope="col">email</th>
+      <th scope="col">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each appeal}}
+        <tr>
+            <td>{{name}}</td>
+            <td>{{idNum}}</td>
+            <td>{{unit}}</td>
+            <td>{{ticketNumber}}</td>          
+            <td>{{email}}</td>
+            <td>{{status}}</td>
+            <td>{{date}}</td>
+        </tr>
+    {{/each}}
+    
+  </tbody>
+</table>
+
+<div class="container mt-5 border p-5" style="width:70%">
+    <h2> Assign the Appeal to Department</h2>
+    <br>
+    <form method="post" action="/assign">
+    <div class="form-group">
+        <label>ticketNumber</label>
+        <input class="form-control" type="text" name="ticketNumber" placeholder="Complaint Number">
+    </div>
+    <div class="form-group">
+        <label>Department</label>
+        <select name="Department" id="departmentName" class="form-control">
+            {{#each deparrmentName}}
+                <option value={{departmentName}}> {{deparrmentName}} </option>
+            {{/each}}
+        </select>
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success btn-block">Assign to Engineer</button>
+    </div>
+    </form>
+</div>
