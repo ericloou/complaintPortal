@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-import { useState, useEffect, React, Suspense } from "react";
-=======
 import { useState, useEffect, React, useRef } from "react";
->>>>>>> 6501e33513dd2759e6db45fb7ca1ee17cfd5f7a4
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
@@ -222,12 +218,7 @@ export default function CreateComplaintForm() {
                   variant="contained"
                   type="submit"
                   endIcon={<SendIcon />}
-<<<<<<< HEAD
-                  
-                  onClick={async()=>{
-=======
                   onClick={() => {
->>>>>>> 6501e33513dd2759e6db45fb7ca1ee17cfd5f7a4
                     makeTicketNumber();
                     currentDate();
                     setNewStatus();
