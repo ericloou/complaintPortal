@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 import { useState, useEffect, React, Suspense } from "react";
+=======
+import { useState, useEffect, React, useRef } from "react";
+>>>>>>> 6501e33513dd2759e6db45fb7ca1ee17cfd5f7a4
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import axios from "axios";
-import { Container ,Grid} from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import useStyles from "../../styles.js";
 import { useHistory} from "react-router-dom";
 import ErrorMessage from "../errorMessage.js";
+import emailjs from "emailjs-com";
 
 export default function CreateComplaintForm() {
   const history = useHistory();
@@ -48,7 +53,7 @@ export default function CreateComplaintForm() {
   function totalCount() {
     setCounter((currentCount) => currentCount + 1);
   }
-  
+
   function currentDate() {
     let newDate = new Date();
     let date = newDate.getDate();
@@ -65,12 +70,16 @@ export default function CreateComplaintForm() {
   }
 
   //Set the status of the complaint to "Pending" when click on submit button
-  function setNewStatus(){
+  function setNewStatus() {
     setStatus("Pending");
   }
 
+  const form = useRef();
+
   const handleSubmit = async (event) => {
+    
     event.preventDefault();
+
     console.log(
       "email:",
       email,
@@ -81,8 +90,16 @@ export default function CreateComplaintForm() {
       "status:",
       status,
       "date: ",
-      date,
+      date
     );
+      console.log(event.target.email.value);
+    emailjs.sendForm('service_0t3tjdk', 'template_jir9n2t', event.target, 'user_wC8sTfX5ZrzsFiksZ6hpY')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+
     try {
       const config = {
         headers: {
@@ -112,40 +129,71 @@ export default function CreateComplaintForm() {
   return (
     <>
       <div className="complaintHeader">
-      
-      <Grid item  xs={12}  sm={20}bgcolor="#e02744">
-        <item><img src="/images/MU_Logo.ico" alt=""/></item>
-        <Grid  item xs={12} sm={15}bgcolor="#e02744">
-              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+        <Grid item xs={12} sm={20} bgcolor="#e02744">
+          <item>
+            <img src="/images/MU_Logo.ico" alt="" />
+          </item>
+          <Grid item xs={12} sm={15} bgcolor="#e02744">
+            <Button
+              variant="contained"
+              color="error"
+              href="#contained-button"
+              type="button"
+              onClick={(e) => {
                 e.preventDefault();
-                window.location.href='https://www.murdoch.edu.au/';}
-              }>
-                Home
-                </Button>
-              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                window.location.href = "https://www.murdoch.edu.au/";
+              }}
+            >
+              Home
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              href="#contained-button"
+              type="button"
+              onClick={(e) => {
                 e.preventDefault();
-                window.location.href='https://www.murdoch.edu.au/about-us';}
-              }>
-                About us
-              </Button>
-              <Button variant="contained" color="error" href="#contained-button" type="button" onClick={(e) => {
+                window.location.href = "https://www.murdoch.edu.au/about-us";
+              }}
+            >
+              About us
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              href="#contained-button"
+              type="button"
+              onClick={(e) => {
                 e.preventDefault();
-                window.location.href='https://www.murdoch.edu.au/contact-us';}}>
-                Contact us
-              </Button>
-              </Grid>
-        <Grid border="1px solid #000000" item xs={12} sm={15}bgcolor="fffff2">
-          
-          <Button variant="contained" color="error" href="#contained-button" type="button" onClick={routeChange}>Back</Button>
+                window.location.href = "https://www.murdoch.edu.au/contact-us";
+              }}
+            >
+              Contact us
+            </Button>
+          </Grid>
+          <Grid
+            border="1px solid #000000"
+            item
+            xs={12}
+            sm={15}
+            bgcolor="fffff2"
+          >
+            <Button
+              variant="contained"
+              color="error"
+              href="#contained-button"
+              type="button"
+              onClick={routeChange}
+            >
+              Back
+            </Button>
           </Grid>
         </Grid>
-        
 
         <h2>Complaint Form</h2>
-        
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form ref={form} onSubmit={handleSubmit}>
         <Box style={{ marginLeft: "auto" }} sx={{ pb: 2, pr: 2 }}>
           <Container maxWidth="lg">
             <div className="createComplain">
@@ -153,11 +201,12 @@ export default function CreateComplaintForm() {
               <label>Email:</label>
               <input
                 type="text"
-                value={email}
+                name = "email"
                 placeholder="Enter email"
-                onInput={(e) => setEmail(e.target.value)}
+                onInput={(e) => setEmail(e.target.name)}
                 required
               />
+
               {/* Create submit button with top and bottom padding*/}
             </div>
             <div className="createComplain2">
@@ -173,8 +222,12 @@ export default function CreateComplaintForm() {
                   variant="contained"
                   type="submit"
                   endIcon={<SendIcon />}
+<<<<<<< HEAD
                   
                   onClick={async()=>{
+=======
+                  onClick={() => {
+>>>>>>> 6501e33513dd2759e6db45fb7ca1ee17cfd5f7a4
                     makeTicketNumber();
                     currentDate();
                     setNewStatus();
