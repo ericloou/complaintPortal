@@ -1,11 +1,11 @@
-import { useState, useEffect, React } from "react";
+import { useState, useEffect, React, Suspense } from "react";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import { Container ,Grid} from "@material-ui/core";
 import useStyles from "../../styles.js";
-import { useHistory } from "react-router-dom";
+import { useHistory} from "react-router-dom";
 import ErrorMessage from "../errorMessage.js";
 
 export default function CreateComplaintForm() {
@@ -14,6 +14,11 @@ export default function CreateComplaintForm() {
     let path = `/`;
     history.push(path);
   };
+
+  const thankYouRoute = () =>{
+    let path = `/thankYouPage`;
+    history.push(path);
+};
 
   const minValue = 1;
   const maxValue = 999999999;
@@ -25,6 +30,8 @@ export default function CreateComplaintForm() {
   const [ticketNumber, setTicketNumber] = useState(0);
   const [error, setError] = useState(false);
   const [date, setDate] = useState("");
+  //Testing for thank you page
+  const [submitted,setSubmitted] = useState(false);
 
   //get persistent object from localStorage and parsing it in
   useEffect(() => {
@@ -93,6 +100,7 @@ export default function CreateComplaintForm() {
         },
         config
       );
+
       console.log(data);
       totalCount();
       window.location.reload(false);
@@ -165,7 +173,8 @@ export default function CreateComplaintForm() {
                   variant="contained"
                   type="submit"
                   endIcon={<SendIcon />}
-                  onClick={()=>{
+                  
+                  onClick={async()=>{
                     makeTicketNumber();
                     currentDate();
                     setNewStatus();

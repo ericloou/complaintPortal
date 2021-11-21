@@ -19,7 +19,8 @@ export default function Logout() {
           localStorage.removeItem("userInfo");
           routeChange();
         }}
-        style={{ float: "right" }}
+        variant="contained" color="inherit" href="#contained-button"
+        style={{ float: "right",border:"1px solid #000000" }}
         sx={{ py: 2, pr: 5 }}
       >
         Logout

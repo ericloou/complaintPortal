@@ -35,10 +35,14 @@ export default function HomePage() {
   return (
     <>
       <div className="adminHome">
-        <Logout />
-        <Box bgcolor="black">
-          <img src="/images/MU_Logo.ico" alt="" />
-        </Box>
+      <Grid container direction="row" justifyContent="space-between" alignItems="left">
+          <Grid item xs={12} bgcolor="#e02744">
+        <item><Logout/></item>
+        </Grid>
+        <Grid item  xs={12}  sm={12}bgcolor="#e02744">
+        <item><img src="/images/MU_Logo.ico" alt=""/></item>
+        </Grid>
+        </Grid>
       </div>
       <div className="adminHomeBody">
         <Container maxWidth="lg">
@@ -55,7 +59,7 @@ export default function HomePage() {
                 justifyContent="space-between"
                 alignItems="stretch"
               ></Grid>
-              <Grid item xs={12} sm={10}>
+              <Grid item xs={12} sm={20}>
                 <Button variant="text" onClick={complaintRoute}>
                   Complaint
                 </Button>

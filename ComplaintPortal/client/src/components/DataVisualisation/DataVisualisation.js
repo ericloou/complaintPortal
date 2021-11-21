@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "@mui/material/Button";
 import { useHistory } from "react-router-dom";
-import Box from "@mui/material/Box";
+import {Box,Grid,Container} from "@material-ui/core";
 import {CChart} from "@coreui/react-chartjs";
 
 
@@ -55,32 +55,22 @@ const style = {
       setAppealCounter(JSON.parse(adata));
     }
   }, []);
-  
-  //set persistent object by converting into string and storing in localStorage
-  /*
-  useEffect(() => {
-    localStorage.setItem("Total-Complaint", JSON.stringify(ComplaintCounter));
-  });
-    
-    useEffect(() => {
-        axios.get("http://localhost:5000/complaints").then((allComplaints) => {
-          setComplaintList(allComplaints.data);
-           //console.log(allComplaints.status);
-        });
-      }, []);*/
 
     return (
         <>
           <div className="ComparsionData">
-            <Box bgcolor="black">
-              <img src="/images/MU_Logo.ico" alt="" />
-              <Box>
-                <Button variant="text" onClick={routeChange}>
-                  Back
-                </Button>
-                </Box>
-                </Box>
-                <Box style={{ marginLeft: "auto" }} sx={{ pb: 50, pr: 50, width: 800, height: 200}}>
+          <Grid container direction="row" justifyContent="space-between" alignItems="left">
+          <Grid item xs={12} bgcolor="#e02744">
+          <img src="/images/MU_Logo.ico" alt="" />
+          </Grid>
+          <Grid border="1px solid #000000" item xs={12} bgcolor="#e02744"> 
+            <Button variant="contained" color="error" href="#contained-button" type="button" onClick={routeChange}>
+              Back
+            </Button>
+          </Grid>
+        </Grid>
+        <Container maxWidth="md">
+                <Box style={{ align: "center" }} >
                 <div className="col-md-6">
                 <h2>Comparison of Complaint/Appeal/Feedback</h2>
                 <div className="chart-wrapper">
@@ -119,6 +109,7 @@ const style = {
                           <hr />
                         </div>
                         </Box>
+                        </Container>
                 </div>
               </>
             );

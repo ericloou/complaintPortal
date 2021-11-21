@@ -109,14 +109,16 @@ export default function BasicTable() {
   return (
     <>
       <div className="showFeedbackHeader">
-        <Box bgcolor="black">
+      <Grid container direction="row" justifyContent="space-between" alignItems="left">
+          <Grid item xs={12} bgcolor="#e02744">
           <img src="/images/MU_Logo.ico" alt="" />
-          <Box>
-            <Button variant="text" onClick={routeChange}>
+          </Grid>
+          <Grid border="1px solid #000000" item xs={12} bgcolor="#e02744"> 
+            <Button variant="contained" color="error" href="#contained-button" type="button" onClick={routeChange}>
               Back
             </Button>
-          </Box>
-        </Box>
+          </Grid>
+        </Grid>
         <h2>Total Number of Feedbacks: {counter}</h2>
         <h2>All Feedbacks</h2>
       </div>
@@ -128,7 +130,7 @@ export default function BasicTable() {
             justifyContent="space-between"
             alignItems="stretch"
           ></Grid>
-          <Grid item xs={12} sm={10}>
+          <Grid item xs={12} sm={20}>
             <TableContainer component={Paper}>
               <Table sx={{ minWidth: 650 }} aria-label="simple table">
                 <TableHead>
