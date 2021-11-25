@@ -16,11 +16,6 @@ export default function CreateComplaintForm() {
     history.push(path);
   };
 
-  const thankYouRoute = () =>{
-    let path = `/thankYouPage`;
-    history.push(path);
-};
-
   const minValue = 1;
   const maxValue = 999999999;
   const [rng, setRng] = useState(1);

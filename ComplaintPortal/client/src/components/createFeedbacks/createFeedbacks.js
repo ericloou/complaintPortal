@@ -1,4 +1,4 @@
-import { useState, useEffect, React } from "react";
+import { useState, useEffect, React, useRef } from "react";
 import Box from "@mui/material/Box";
 import SendIcon from "@mui/icons-material/Send";
 import Button from "@mui/material/Button";
@@ -7,6 +7,7 @@ import { Container,Grid} from "@material-ui/core";
 import useStyles from "../../styles.js";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "../errorMessage.js";
+import emailjs from "emailjs-com";
 
 export default function CreateFeedbackForm() {
   const history = useHistory();
@@ -63,6 +64,8 @@ export default function CreateFeedbackForm() {
     setStatus("Pending");
   }
 
+  const form = useRef();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(
@@ -77,6 +80,13 @@ export default function CreateFeedbackForm() {
       "date: ",
       date,
     );
+    console.log(event.target.email.value);
+    emailjs.sendForm('service_0t3tjdk', 'template_jir9n2t', event.target, 'user_wC8sTfX5ZrzsFiksZ6hpY')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
     try {
       const config = {
         headers: {
@@ -143,9 +153,9 @@ export default function CreateFeedbackForm() {
               <input
                 required
                 type="text"
-                value={email}
+                name = "email"
                 placeholder="Enter email"
-                onInput={(e) => setEmail(e.target.value)}
+                onInput={(e) => setEmail(e.target.name)}
               />
             </div>
             <div className="createFeedback2">

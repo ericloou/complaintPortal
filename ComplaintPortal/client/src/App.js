@@ -8,7 +8,6 @@ import CreateComplaintForm from "./components/createComplaints/createComplaints.
 import CreateAppealForm from "./components/createAppeals/createAppeals.js";
 import CreateFeedbackForm from "./components/createFeedbacks/createFeedbacks.js";
 import DataVisualisation from "./components/DataVisualisation/DataVisualisation.js";
-import thankYouPage from "./components/thankYouPage/thankYouPage.js";
 
 import "./App.css";
 import useStyles from "./styles.js";
@@ -33,7 +32,6 @@ function App() {
       <Route exact path="/createcomplaints" component={CreateComplaintForm} />
       <Route exact path="/createappeals" component={CreateAppealForm} />
       <Route exact path="/createfeedbacks" component={CreateFeedbackForm} />
-      <Route exact path="/thankYouPage" component={thankYouPage} />
     </div>
   );
 }
