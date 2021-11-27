@@ -78,9 +78,9 @@ const style = {
                   type='doughnut'
                   data={{
                     labels: [
-                      'Complaint',
-                      'Appeal',
-                      'Feedback',
+                      'Pending Complaint',
+                      'Pending Appeal',
+                      'Pending Feedback',
                     ],
                     datasets: [
                       {
